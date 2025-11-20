@@ -1,13 +1,11 @@
 repos:
-  - repo: local
+  - repo: https://github.com/pycqa/pylint
+    rev: v4.0.3
     hooks:
       - id: pylint
-        name: pylint
-        entry: python -m pylint
-        language: system
-        types: [python]
         args:
           - "-rn"
           - "-sn"
           - "--rcfile=.pylintrc"
-          - "--load-plugins=pylint.extensions.docparams"
+        additional_dependencies:
+          - pylint==4.0.3
