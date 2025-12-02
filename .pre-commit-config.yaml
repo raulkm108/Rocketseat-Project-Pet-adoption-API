@@ -8,3 +8,4 @@ repos:
           - "--rcfile=./.pylintrc"
         additional_dependencies:
           - pylint==4.0.3
+          - sqlalchemy
