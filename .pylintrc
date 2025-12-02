@@ -10,7 +10,12 @@ disable=
     C0116,  # missing-function-docstring
     W0703,  # broad-except
     C0303,  # trailing-whitespace
-    C0304   # missing-final-newline
+    C0304,  # missing-final-newline
+    C0301,  # line-too-long
+    R0903   # too=few=public-methods
 
 [FORMAT]
 max-line-length=100
+
+[CLASSES]
+min-public-methods=0
