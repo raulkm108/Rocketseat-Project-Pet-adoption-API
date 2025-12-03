@@ -12,8 +12,8 @@ disable=
     C0303,  # trailing-whitespace
     C0304,  # missing-final-newline
     C0301,  # line-too-long
-    R0903   # too-few-public-methods
-
+    R0903,  # too-few-public-methods
+    E0401   #import-error
 [FORMAT]
 max-line-length=100
 
