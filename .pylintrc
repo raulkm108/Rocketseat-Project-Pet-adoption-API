@@ -14,7 +14,8 @@ disable=
     C0301,  # line-too-long
     R0903,  # too-few-public-methods
     E0401,  #import-error
-    C0411   #wrong-import-order
+    C0411,  #wrong-import-order
+    W0622   #redefined-builtin
 [FORMAT]
 max-line-length=100
 
