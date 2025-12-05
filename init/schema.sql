@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS 'people' (
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
     age INTEGER NOT NULL,
-    pet_id INTEGER NOT NULL,
+    pet_id INTEGER,
     FOREIGN KEY (pet_id) REFERENCES pets(id)
 );
 
