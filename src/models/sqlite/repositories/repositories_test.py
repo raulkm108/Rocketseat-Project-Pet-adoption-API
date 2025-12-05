@@ -4,17 +4,16 @@ from .pets_repository import PetsRepository
 from .people_repository import PeopleRepository
 
 
-# db_connection_handler.connect_to_db()
+db_connection_handler.connect_to_db()
 
 @pytest.mark.skip(reason="Interation with the db")
 def test_create_pet():
 
-    pet_name = "joao"
-    type = "gato"
-    owner_id = 5
+    pet_name = "Fofao"
+    type = "Cachorro"
+    owner_id = 3
     repo = PetsRepository(db_connection_handler)
     repo.create_pet(pet_name,type, owner_id)
-    repo.create_pet(pet_name,type)
 
 @pytest.mark.skip(reason="Interation with the db")
 def test_list_pets():
@@ -31,9 +30,18 @@ def test_delete_pet():
     
 @pytest.mark.skip(reason="Interation with the db")
 def test_insert_person():
-    first_name = "test first name"
-    last_name = "test last name" 
-    age = 77
+    first_name = "João"
+    last_name = "Felipe da Silva" 
+    age = 15
 
     repo = PeopleRepository(db_connection_handler)
     repo.insert_person(first_name, last_name, age)
+
+@pytest.mark.skip(reason="Interation with the db")
+def test_list_person():
+    first_name = "Felipe"
+
+    repo = PeopleRepository(db_connection_handler)
+    person_found = repo.list_person(first_name)
+    print()
+    print(person_found)
