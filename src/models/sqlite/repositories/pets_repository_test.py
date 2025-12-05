@@ -49,6 +49,27 @@ def test_create_pet_with_owner():
     assert mock_connection.session.add.called
     mock_connection.session.commit.assert_called_once()
 
+def test_create_pet_comit_error():
+    mock_connection = MockConnection()
+
+    mock_connection.session.commit.side_effect = Exception("db error")
+
+    repo = PetsRepository(mock_connection)
+
+    with pytest.raises(Exception):
+        repo.create_pet("belinha", "gato", "10")
+
+    mock_connection.session.rollback.assert_called_once()
+
+def test_create_pet_without_owner():
+    mock_connection = MockConnection()
+    repo = PetsRepository(mock_connection)
+
+    repo.create_pet("belinha", "gato", None)
+
+    pet_obj = mock_connection.session.add.call_args[0][0]
+    assert pet_obj.owner_id is None
+
 def test_list_pets():
     mock_connection = MockConnection()
     repo = PetsRepository(mock_connection)
