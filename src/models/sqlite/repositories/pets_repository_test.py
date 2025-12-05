@@ -1,6 +1,7 @@
 from unittest import mock
 from mock_alchemy.mocking import UnifiedAlchemyMagicMock
 from src.models.sqlite.entities.pets import PetsTable
+from src.models.sqlite.entities.people import PeopleTable # pylint: disable=unused-import
 from .pets_repository import PetsRepository
 from sqlalchemy.orm.exc import NoResultFound
 import pytest
@@ -38,6 +39,15 @@ class MockConnectionNoResult:
     
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass
+
+def test_create_pet_with_owner():
+    mock_connection = MockConnection()
+    repo = PetsRepository(mock_connection)
+
+    repo.create_pet("belinha","gato", "Raul")
+
+    assert mock_connection.session.add.called
+    mock_connection.session.commit.assert_called_once()
 
 def test_list_pets():
     mock_connection = MockConnection()
