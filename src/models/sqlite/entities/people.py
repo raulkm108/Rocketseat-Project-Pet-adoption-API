@@ -1,4 +1,5 @@
-from sqlalchemy import Column, String, BIGINT, ForeignKey
+from sqlalchemy import Column, String, BIGINT
+from sqlalchemy.orm import relationship
 from src.models.sqlite.settings.base import Base
 
 class PeopleTable(Base):
@@ -8,7 +9,11 @@ class PeopleTable(Base):
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
     age = Column(BIGINT, nullable=False)
-    pet_id = Column(BIGINT, ForeignKey("pets.id"), nullable=True)
+
+    pets = relationship("PetsTable", back_populates="owner")
 
     def __repr__(self):
-        return f"PEOPLE [name={self.first_name}, last_name={self.last_name}, age={self.age}, pet_id={self.pet_id}]"
+        return (
+            f"PEOPLE [name={self.first_name}, last_name={self.last_name}, age={self.age}, "
+            f"pets={self.pets}]"
+        )
