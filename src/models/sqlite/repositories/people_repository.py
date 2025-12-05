@@ -1,5 +1,6 @@
 from typing import List
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.orm import joinedload
 from src.models.sqlite.entities.people import PeopleTable
 
 
@@ -22,6 +23,14 @@ class PeopleRepository:
             try:
                 people = database.session.query(PeopleTable).all()
                 return people
+            except NoResultFound:
+                return []
+            
+    def list_person(self, first_name:int) -> PeopleTable:
+        with self.__db_connection as database:
+            try:
+                person = database.session.query(PeopleTable).options(joinedload(PeopleTable.pets)).filter(PeopleTable.first_name == first_name).all()
+                return person
             except NoResultFound:
                 return []
             
