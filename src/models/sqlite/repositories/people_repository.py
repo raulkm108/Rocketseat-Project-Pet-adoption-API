@@ -37,5 +37,4 @@ class PeopleRepository:
                 database.session.commit()
             except Exception as exception:
                 database.session.rollback()
-                raise exception
-            
+                raise exception         
