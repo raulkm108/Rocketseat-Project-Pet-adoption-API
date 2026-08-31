@@ -1,7 +1,7 @@
 from typing import List
 from sqlalchemy.orm.exc import NoResultFound
-from sqlalchemy.orm import joinedload
 from src.models.sqlite.entities.people import PeopleTable
+from src.models.sqlite.entities.pets import PetsTable
 
 
 class PeopleRepository:
@@ -26,13 +26,25 @@ class PeopleRepository:
             except NoResultFound:
                 return []
             
-    def list_person(self, first_name:int) -> PeopleTable:
+    def list_person(self, first_name:str) -> PeopleTable:
         with self.__db_connection as database:
             try:
-                person = database.session.query(PeopleTable).options(joinedload(PeopleTable.pets)).filter(PeopleTable.first_name == first_name).all()
+                person = (
+                    database.session
+                    .query(PeopleTable)
+                    .outerjoin(PetsTable, PeopleTable.id == PetsTable.owner_id)
+                    .filter(PeopleTable.first_name == first_name)
+                    .with_entities(
+                        PeopleTable.first_name,
+                        PeopleTable.last_name,
+                        PetsTable.name.label("pet_name"),
+                        PetsTable.type.label("pet_type")
+                    )
+                    .all()
+                )
                 return person
             except NoResultFound:
-                return []
+                return None
             
     def delete_people(self, first_name: str) -> None:
         with self.__db_connection as database:
