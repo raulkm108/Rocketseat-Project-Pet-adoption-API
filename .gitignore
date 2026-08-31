@@ -5,6 +5,7 @@ __pycache__/
 storage.db
 **__pycache__
 .pytest_cache
+storage.db
 
 # C extensions
 *.so
