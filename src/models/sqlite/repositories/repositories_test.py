@@ -45,3 +45,12 @@ def test_list_person():
     person_found = repo.list_person(first_name)
     print()
     print(person_found)
+
+@pytest.mark.skip(reason="Interation with the db")
+def test_connect_pet_to_person():
+    person_id = 4
+    pet_id = 5
+
+    repo = PetsRepository(db_connection_handler)
+
+    repo.connect_pet_to_person(person_id, pet_id)

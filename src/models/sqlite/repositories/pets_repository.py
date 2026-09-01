@@ -1,6 +1,7 @@
 from typing import List
 from sqlalchemy.orm.exc import NoResultFound
 from src.models.sqlite.entities.pets import PetsTable
+from src.models.sqlite.entities.people import PeopleTable
 
 
 class PetsRepository:
@@ -38,6 +39,33 @@ class PetsRepository:
             except Exception as exception:
                 database.session.rollback()
                 raise exception
+    def connect_pet_to_person(self, owner_id: int, pet_id: int) -> None:
+        with self.__db_connection as database:
+            try:
+                person = (
+                    database.session
+                    .query(PeopleTable)
+                    .filter(PeopleTable.id == owner_id)
+                    .first()
+                )
+
+                pet = (
+                    database.session
+                    .query(PetsTable)
+                    .filter(PetsTable.id == pet_id)
+                    .first()
+                )
+
+                if person is None or pet is None:
+                    raise ValueError("Person or Pet not found")
+
+                pet.owner = person
+
+                database.session.commit()
+
+            except Exception:
+                database.session.rollback()
+                raise
     
    # def connect_pet_to_person(self, person_first_name: str, pet_name: str) -> None:
    #     with self.__db_connection as database:
