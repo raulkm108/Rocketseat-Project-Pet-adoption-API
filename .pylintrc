@@ -15,7 +15,8 @@ disable=
     R0903,  # too-few-public-methods
     E0401,  #import-error
     C0411,  #wrong-import-order
-    W0622   #redefined-builtin
+    W0622,   #redefined-builtin
+    W0719  #broad-exception-raised
 [FORMAT]
 max-line-length=100
 
