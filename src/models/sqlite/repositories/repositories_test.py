@@ -4,7 +4,7 @@ from .pets_repository import PetsRepository
 from .people_repository import PeopleRepository
 
 
-db_connection_handler.connect_to_db()
+# db_connection_handler.connect_to_db()
 
 @pytest.mark.skip(reason="Interation with the db")
 def test_create_pet():

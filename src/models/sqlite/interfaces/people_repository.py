@@ -10,3 +10,7 @@ class PeopleRepositoryInterface(ABC):
     @abstractmethod
     def list_person(self, first_name:str) -> PeopleTable:
         pass
+
+    @abstractmethod
+    def delete_people(self, first_name: str) -> None:
+        pass
