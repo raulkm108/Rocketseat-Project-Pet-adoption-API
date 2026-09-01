@@ -6,6 +6,7 @@ storage.db
 **__pycache__
 .pytest_cache
 storage.db
+__init__.py
 
 # C extensions
 *.so
