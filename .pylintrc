@@ -16,7 +16,8 @@ disable=
     E0401,  #import-error
     C0411,  #wrong-import-order
     W0622,   #redefined-builtin
-    W0719  #broad-exception-raised
+    W0719,  #broad-exception-raised
+    R0801   #duplicate-code
 [FORMAT]
 max-line-length=100
 
