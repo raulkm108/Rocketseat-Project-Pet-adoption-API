@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from src.models.sqlite.entities.people import PeopleTable
+from typing import List
 
 class PeopleRepositoryInterface(ABC):
 
@@ -12,5 +13,9 @@ class PeopleRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    def delete_people(self, first_name: str) -> None:
+    def list_people(self) -> List:
+        pass
+
+    @abstractmethod
+    def delete_person(self, first_name: str) -> None:
         pass

@@ -47,7 +47,7 @@ class PeopleRepository(PeopleRepositoryInterface):
             except NoResultFound:
                 return None
             
-    def delete_people(self, first_name: str) -> None:
+    def delete_person(self, first_name: str) -> None:
         with self.__db_connection as database:
             try:
                 (
