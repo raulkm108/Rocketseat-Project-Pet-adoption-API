@@ -1,5 +1,6 @@
 from typing import List
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.orm import joinedload
 from src.models.sqlite.entities.pets import PetsTable
 from src.models.sqlite.entities.people import PeopleTable
 from src.models.sqlite.interfaces.pets_repository import PetsRepositoryInterface
@@ -22,7 +23,12 @@ class PetsRepository(PetsRepositoryInterface):
     def list_pets(self) -> List:
         with self.__db_connection as database:
             try:
-                pets = database.session.query(PetsTable).all()
+                pets = (
+                    database.session
+                    .query(PetsTable)
+                    .options(joinedload(PetsTable.owner))
+                    .all()
+                )
                 return pets
             except NoResultFound:
                 return []
