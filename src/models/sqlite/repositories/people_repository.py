@@ -1,7 +1,8 @@
 from typing import List
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.orm import joinedload
 from src.models.sqlite.entities.people import PeopleTable
-from src.models.sqlite.entities.pets import PetsTable
+from src.models.sqlite.entities.pets import PetsTable #pylint: disable=unused-import
 from src.models.sqlite.interfaces.people_repository import PeopleRepositoryInterface
 
 
@@ -27,21 +28,15 @@ class PeopleRepository(PeopleRepositoryInterface):
             except NoResultFound:
                 return []
             
-    def list_person(self, first_name:str) -> PeopleTable:
+    def list_person(self, person_id: int) -> PeopleTable:
         with self.__db_connection as database:
             try:
                 person = (
                     database.session
                     .query(PeopleTable)
-                    .outerjoin(PetsTable, PeopleTable.id == PetsTable.owner_id)
-                    .filter(PeopleTable.first_name == first_name)
-                    .with_entities(
-                        PeopleTable.first_name,
-                        PeopleTable.last_name,
-                        PetsTable.name.label("pet_name"),
-                        PetsTable.type.label("pet_type")
-                    )
-                    .all()
+                    .options(joinedload(PeopleTable.pets))
+                    .filter(PeopleTable.id == person_id)
+                    .first()
                 )
                 return person
             except NoResultFound:

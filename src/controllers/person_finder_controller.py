@@ -27,7 +27,15 @@ class PersonFinderController(PersonFinderControllerInterface):
                 "attributes": {
                     "first_name": person.first_name,
                     "last_name": person.last_name,
-                    "age": person.age
+                    "age": person.age,
+                    "pets": [
+                        {
+                        "name": pet.name,
+                        "type": pet.type
+                        }
+                        for pet in person.pets
+                
+                    ]
                 }
             }
         }

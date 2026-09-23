@@ -9,7 +9,7 @@ class PeopleRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    def list_person(self, first_name:str) -> PeopleTable:
+    def list_person(self, person_id: int) -> PeopleTable:
         pass
 
     @abstractmethod
